@@ -1,0 +1,35 @@
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+  <h5 class="my-0 mr-md-auto font-weight-normal">Shopping</h5>
+  <nav class="my-2 my-md-0 mr-md-3">
+    <a class="router" [routerLink]="['/home']">All Product</a>
+    <a class="router" [routerLink]="['/phone']">Phone</a>
+    <a class="router" [routerLink]="['/laptop']">LapTop</a>
+    <a class="router" [routerLink]="['/tivi']">Tivi</a>
+    <button class="byn btn-primary" routerLink="/cart">
+      <i class="fas fa-cart-plus"></i>
+      <div class="badge bg-danger">{{numberOfItem}}</div>
+    </button>
+  </nav>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+      <app-filter hidden (filter)="getFilter($event)" ></app-filter>
+    </div>
+    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"> 
+      <app-shopping-list [valueFilter]="valueFilter"></app-shopping-list>
+    </div>
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+      <app-cart  [getData]="getData" [getProductQty]="getProductQty" ></app-cart>
+    </div>
+  </div>
+</div> -->
+<!-- (sendProduct)="getProduct($event)" (sendQty)="getQty($event)" -->

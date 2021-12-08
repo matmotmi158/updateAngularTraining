@@ -1,0 +1,40 @@
+<div class="container">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Image</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>total</th>
+        <th>Remove Item</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of allItem; let i = index">
+        <td>{{ i+1 }}</td>
+        <td>{{ item.product.name }}</td>
+        <td><img [src]="item.product.link" width="100%" alt="" /></td>
+        <td>{{ item.product.price }}</td>
+        <td>{{ item.qty }}</td>
+        <td>{{ item.product.price * item.qty | currency: "USD"  }}</td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="removeItem(item.id)"
+          >
+            Remove
+          </button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="5">Total:</td>
+        <td>{{ totalMoney | currency: "USD" }}</td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
