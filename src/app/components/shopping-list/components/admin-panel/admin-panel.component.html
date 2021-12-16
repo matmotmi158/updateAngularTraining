@@ -1,0 +1,9 @@
+<div class="container mt-3">
+    <button type="button" class="btn btn-outline-info" routerLink="/home">
+      View Home-page
+    </button>
+    <hr>
+    <button type="button" class="btn btn-outline-info" (click)="activeFormAdd()">Create new product</button>
+<ng-container *ngIf="checkActive">
+<app-add-product (closeForm)="onCloseForm($event)"></app-add-product>
+</ng-container>

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TiviProductComponent } from './tivi-product.component';
+import { AdminPanelComponent } from './admin-panel.component';
 
-describe('TiviProductComponent', () => {
-  let component: TiviProductComponent;
-  let fixture: ComponentFixture<TiviProductComponent>;
+describe('AdminPanelComponent', () => {
+  let component: AdminPanelComponent;
+  let fixture: ComponentFixture<AdminPanelComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TiviProductComponent ]
+      declarations: [ AdminPanelComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TiviProductComponent);
+    fixture = TestBed.createComponent(AdminPanelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

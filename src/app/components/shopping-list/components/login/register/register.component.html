@@ -1,0 +1,31 @@
+<form (ngSubmit)="onRegister()" [formGroup]="formRegister">
+    <div class="container">
+      <h1>Register</h1>
+      <p>Please fill in this form to create an account.</p>
+      <hr>
+        <div class="form-group">
+      <label for="email"><b>Email</b></label>
+      <input type="text" placeholder="Enter Email" name="email" formControlName="username">
+      <span class="label label-danger" *ngIf="formRegister.controls?.['username']?.errors?.['required'] && formRegister.get('username').touched">Không được để trống</span>
+    </div>
+    <div class="form-group">
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" formControlName="password">
+      <span class="label label-danger" *ngIf="formRegister.controls?.['password']?.errors?.['required'] && formRegister.get('password').touched">Không được để trống</span>
+    </div>
+      <div class="form-group">
+      <label for="psw-repeat"><b>Repeat Password</b></label>
+      <input type="password" placeholder="Repeat Password" name="psw-repeat"  formControlName="repassword" >
+      <span class="label label-danger" *ngIf="formRegister.controls?.['repassword']?.errors?.['required'] && formRegister.get('repassword').touched">Không được để trống</span>
+      <span class="label label-danger" *ngIf="formRegister.errors?.['reCheckPass']">Không được để trống</span>
+    </div>
+    <hr>
+      <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+      <button type="submit" class="registerbtn" [disabled]="formRegister.invalid">Register</button>
+ 
+</div>
+</form>
+    <div class="container signin">
+      <p>Already have an account? <a routerLink="/login">Sign in</a></p>
+    </div>
+  

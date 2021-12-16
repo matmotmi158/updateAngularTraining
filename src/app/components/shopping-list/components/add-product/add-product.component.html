@@ -1,0 +1,41 @@
+<!-- zxczxc -->
+  <h2 class="text-center text-success">Create new Product</h2>
+<div class="form-content">
+  <div class="row">
+    <div class="col-md-8 offset-2">
+      <hr>
+      <form (ngSubmit)="checkAdd()" [formGroup]="formNewProduct">
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <label for="uname"><b>Tên SP</b></label><br>
+              <input type="text" [style.width.%]="100" placeholder="Enter Name Product" name = "uname" formControlName="name">
+            </div>
+            <div class="form-group">
+              <label for="psw"><b>Giá SP</b></label><br>
+              <input type="text" [style.width.%]="100" placeholder="Price" name = "psw" formControlName="price">
+            </div>
+            <div class="form-group">
+              <label for="psw"><b>Link hình ảnh SP</b></label><br>
+              <input [style.width.%]="100" type="text" placeholder="Link Image" name = "psw" formControlName="link">
+            </div>
+            <div class="form-group">
+              <label class="h5 form-control-label">Category<span style="color: red;">*</span> :</label>
+              <select name="inputRoles" class="form-control" formControlName="title">
+                <option value="Phone">Phone</option>
+                <option value="Laptop">Laptop</option>
+                <option value="Tivi">Tivi</option>
+            </select>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center mt-2">
+          <button type="submit" class="btn btn-outline-primary">Create new product</button>
+          <button type="reset" class="btn btn-outline-danger mx-3">Reset</button><br>
+          <button type="button" class="btn btn-outline-warning" (click)="onCloseProduct()">Close Form</button><br>
+        </div>
+        <hr>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,9 +1,11 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
-import { of, Subscription } from 'rxjs';
+import { Component, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Cart } from 'src/app/models/cart.model';
 import { Product } from 'src/app/models/product.model';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
+
 
 
 @Component({
@@ -11,59 +13,33 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './shopping-list.component.html',
   styleUrls: ['./shopping-list.component.css'],
 })
-export class ShoppingListComponent implements OnInit, OnDestroy, OnChanges {
+export class ShoppingListComponent implements OnInit, OnChanges {
   listProduct!: Product[];
-  subscription!: Subscription;
-  subscriptionCheck !: Subscription
-  subscriptionUpdate !: Subscription
   checkProduct!: Cart[]
   cartItem !: Cart
-  constructor(private productService: ProductService, private cartService:CartService) {}
-  
+  subscription = new Subscription()
+  @Input("filterValue") filterValue :string = "All";
+  @Input("checkRole") isAdmin !: boolean;
+  @Input("username") username !: string;
+  constructor(private productService: ProductService, private cartService:CartService,private router:Router) {}
   ngOnInit(): void {
-    this.getProduct()
   }
   ngOnChanges() {
+    this.subscription.add(this.productService.filterList(this.filterValue).subscribe(data=>{
+      this.listProduct = data
+    }))
+}
+
+  onAddCart(product:Product,qty:any,username:string){
+    if(username){
+      this.cartService.addOrUpdateItemWithAccount(username,product,qty.value);
+    }else{
+    if(confirm(`Bạn muốn thêm ${product.name} vào giỏ hàng thì phải đăng nhập trước `)){
+      this.router.navigateByUrl('/login')
+    }}
+    qty.value = 1;
   }
-  ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-    if(this.subscriptionCheck){
-      this.subscriptionCheck.unsubscribe()
-    }
-    if(this.subscriptionUpdate){
-      this.subscriptionUpdate.unsubscribe()
-    }
-  }
-  getProduct() {
-    this.subscription = this.productService
-      .getAllProduct()
-      .subscribe((data) => {
-        this.listProduct = data;
-      });
-  }
-  onAddCart(product:Product,qty:any){
-    if(confirm(`Bạn muốn thêm ${product.name} vào giỏ hàng với số lượng là ${qty.value}? `)){
-    this.subscriptionCheck = this.cartService.getAllItem().subscribe(data=>{
-      let check = false
-      this.checkProduct = data
-      for(let i in this.checkProduct){
-        if(this.checkProduct[i].product.id === product.id){
-          this.checkProduct[i].qty = Number(this.checkProduct[i].qty) + Number(qty.value)
-          this.cartItem = new Cart(this.checkProduct[i].product,this.checkProduct[i].qty)
-          this.subscriptionUpdate = this.cartService.updateItem(Number(this.checkProduct[i].id),this.cartItem).subscribe()
-          check = true
-          break;
-        }
-      }
-      if(!check){
-        this.cartItem = new Cart(product,qty.value)
-        this.subscription = this.cartService.addToCart(this.cartItem).subscribe()
-        location.reload()
-      }
-      location.reload()
-    })
-    }
+  deleteItem(product:Product){
+    this.productService.deleteItem(product);
   }
 }

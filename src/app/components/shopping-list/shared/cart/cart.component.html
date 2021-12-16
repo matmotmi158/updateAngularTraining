@@ -1,3 +1,4 @@
+<ng-container *ngIf="totalMoney;else nothing">
 <div class="container">
   <table class="table table-bordered table-hover">
     <thead>
@@ -14,16 +15,20 @@
     <tbody>
       <tr *ngFor="let item of allItem; let i = index">
         <td>{{ i+1 }}</td>
-        <td>{{ item.product.name }}</td>
-        <td><img [src]="item.product.link" width="100%" alt="" /></td>
+        <td> <b>{{ item.product.name}}</b></td>
+        <td><img [src]="item.product.link" [style.width.%]="100" alt="" /></td>
         <td>{{ item.product.price }}</td>
-        <td>{{ item.qty }}</td>
+        <td>
+          <i class="fa fa-minus" (click)="onChangeValue(username,item.product.id,false)"></i>
+          {{item.qty}}
+          <i class="fa fa-plus" (click)="onChangeValue(username,item.product.id,true)"></i>
+        </td>
         <td>{{ item.product.price * item.qty | currency: "USD"  }}</td>
         <td>
           <button
             type="button"
             class="btn btn-danger"
-            (click)="removeItem(item.id)"
+            (click)="removeItem(username,item.product.id)"
           >
             Remove
           </button>
@@ -38,3 +43,16 @@
     </tfoot>
   </table>
 </div>
+</ng-container>
+<ng-template #nothing>
+  
+  <div class="panel panel-success text-align-center">
+      <div class="panel-heading">
+        <h3 class="panel-title">Giỏ Hàng Hiện Đang Trống Bạn Có Muốn Tìm Sản Phẩm Khác?</h3>
+      </div>
+      <div class="panel-body">
+        Nhấn Home Để Quay Về Trang Chủ
+      </div>
+  </div>
+  
+</ng-template>

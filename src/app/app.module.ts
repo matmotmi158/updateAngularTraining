@@ -11,9 +11,13 @@ import { NavComponent } from './components/shopping-list/shared/nav/nav.componen
 import { FilterComponent } from './components/shopping-list/shared/filter/filter.component';
 import { CartComponent } from './components/shopping-list/shared/cart/cart.component';
 import { FormsModule } from '@angular/forms';
-import { PhoneProductComponent } from './components/shopping-list/components/phone-product/phone-product.component';
-import { TiviProductComponent } from './components/shopping-list/components/tivi-product/tivi-product.component';
-import { LaptopProductComponent } from './components/shopping-list/components/laptop-product/laptop-product.component';
+import { HomePageComponent } from './components/shopping-list/components/home-page/home-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './components/shopping-list/components/login/login.component';
+import { AdminPanelComponent } from './components/shopping-list/components/admin-panel/admin-panel.component';
+import { AddProductComponent } from './components/shopping-list/components/add-product/add-product.component';
+import { RegisterComponent } from './components/shopping-list/components/login/register/register.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,16 +27,19 @@ import { LaptopProductComponent } from './components/shopping-list/components/la
     NavComponent,
     FilterComponent,
     CartComponent,
-    PhoneProductComponent,
-    TiviProductComponent,
-    LaptopProductComponent
+    HomePageComponent,
+    LoginComponent,
+    AdminPanelComponent,
+    AddProductComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
