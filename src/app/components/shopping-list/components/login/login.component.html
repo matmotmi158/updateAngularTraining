@@ -1,35 +1,37 @@
-  <div id="login-form">
-    <h2 class="text-center text-primary">User Login</h2>
-    <div class="form-content">
-      <div class="row">
-        <div class="col-md-8 mx-auto">
-          <hr>
-          <form (ngSubmit)="checkLogin()" [formGroup]="formLogin">
-            <div class="form-group">
-              <label for="username">Username :</label>
-              <input type="text" class="form-control" name="username" formControlName="username" />
-              <small *ngIf="formLogin.get('username').invalid && formLogin.get('username').touched" class="text-danger">Please
+<div class="container" id="container">
+	<div class="form-container sign-in-container">
+		<form (ngSubmit)="checkLogin()" [formGroup]="formLogin">
+			<h1>Sign in</h1>
+			<div class="social-container">
+				<a  class="social"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+				<a  class="social"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+				<a  class="social"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+			</div>
+			<span>or use your account</span>
+      <input type="text" class="form-control" name="username" formControlName="username" placeholder="username" />
+      <small *ngIf="formLogin.get('username').invalid && formLogin.get('username').touched" class="text-danger">Please
                 enter a valid username!</small>
-            </div>
-            <div class="form-group">
-              <label for="password">Password :</label>
-              <input type="password" class="form-control" name="password" formControlName="password" />
-              <small *ngIf="formLogin.get('password').invalid && formLogin.get('password').touched" class="text-danger">This
-                field can't be left empty!</small>
-            </div>
-            <div class="row justify-content-center">
-              <button type="submit" class="btn btn-primary mr-3 px-4" [disabled]="formLogin.invalid">Login</button><br>
-              <button type="button" class="btn btn-success mr-3 px-4" routerLink="/register">Register</button><br>
-            </div>
-            <hr>
-  
-          </form>
-          <div class="row justify-content-center">
-            <button type="button" class="btn btn-info px-4" routerLink="/home">Back to HomePage</button>
-          </div>
-          
-          <br>
-        </div>
-      </div>
-    </div>
-  </div>
+      <input type="password" class="form-control" name="password" formControlName="password" placeholder="password" />
+      <small *ngIf="formLogin.get('password').invalid && formLogin.get('password').touched" class="text-danger">This
+                  field can't be left empty!</small>
+			<a >Forgot your password?</a>
+			<button [disabled]="formLogin.invalid">Sign In</button>
+		</form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-left">
+				<h1>Welcome Back!</h1>
+				<p>To keep connected with us please login with your personal info</p>
+				<button class="ghost" id="signIn">Sign In</button>
+			</div>
+			<div class="overlay-panel overlay-right">
+				<h1>Hello, Friend!</h1>
+				<p>Enter your personal details and start journey with us</p>
+				<button class="ghost" id="signUp" routerLink="/register">Sign Up</button>
+        <button class="ghost" [style.margin-top.px]="10" routerLink="/home">Go HomePage</button>
+			</div>
+		</div>
+	</div>
+</div>
+
