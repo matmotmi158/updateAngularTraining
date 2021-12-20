@@ -19,9 +19,9 @@
         <td><img [src]="item.product.link" [style.width.%]="30" alt="" /></td>
         <td>{{ item.product.price }}</td>
         <td>
-          <i class="fa fa-minus" (click)="onChangeValue(username,item.product.id,false)"></i>
+          <i class="fa fa-minus" (click)="onChangeQuantity(username,item.product.id,false)"></i>
           {{item.qty}}
-          <i class="fa fa-plus" (click)="onChangeValue(username,item.product.id,true)"></i>
+          <i class="fa fa-plus" (click)="onChangeQuantity(username,item.product.id,true)"></i>
         </td>
         <td>{{ item.product.price * item.qty | currency: "USD"  }}</td>
         <td>

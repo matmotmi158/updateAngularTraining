@@ -22,14 +22,14 @@ export class LoginComponent implements OnInit {
     let username = this.formLogin.controls?.['username'].value;
     let password = this.formLogin.controls?.['password'].value;
     const allAccount = this.transferService.getAllAccount();
-    let checkAccount = []
+    let checkAccount :any
     let checkRoles !:boolean;
-    checkAccount.push(allAccount.find(data => data.username === username))
-    if(checkAccount[0]?.password === password){
-      if(checkAccount[0]?.roles.toLowerCase() === 'admin'){
+    checkAccount = allAccount.find(data => data.username === username )
+    if(checkAccount.password === password){
+      if(checkAccount.roles.toLowerCase() === 'admin'){
         checkRoles = true;
       }
-      if(checkAccount[0]?.roles.toLowerCase() === 'user'){
+      if(checkAccount.roles.toLowerCase() === 'user'){
         checkRoles = false;
       }
         this.routerService.navigate(['home']);

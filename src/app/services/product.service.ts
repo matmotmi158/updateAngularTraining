@@ -18,7 +18,7 @@ export class ProductService {
   products$ = new BehaviorSubject<Product[]>(this.products)
   constructor() { }
   displayAllProduct(){
-    return this.products$.getValue()
+    return [...this.products$.getValue()]
   }
   generateID(){
     const value = this.displayAllProduct();

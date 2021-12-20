@@ -16,11 +16,11 @@ export class TransferService {
     new Account(3,"user1","user1","user",[])
   ]
   cartByUser:CartByUser[]=[]
-  loginAccount$ = new BehaviorSubject(null) // hhan che dung undefined
+  loginAccount$ = new BehaviorSubject<Account>(null) // hhan che dung undefined
   allAccount$ = new BehaviorSubject<Account[]>(this.allAccount)
   constructor() { }
   getAllAccount(){
-    return this.allAccount$.getValue();
+    return [...this.allAccount$.getValue()];
   }
   generateID(){
     const value = this.getAllAccount();
@@ -39,9 +39,7 @@ export class TransferService {
   getAllItemByUser(username:string){
     return this.allAccount$.pipe(map(data=>data.find(item=>item.username===username)))
   }
-  getAccountByUserName(username:string){
-    return this.getAllAccount().find(data=>data.username===username);
-  }
+
   saveLoginAccount(account:any){
     this.loginAccount$.next(account);
   }
@@ -49,7 +47,7 @@ export class TransferService {
     return this.loginAccount$.getValue();
   }
   logoutAccount(){
-    this.loginAccount$.next("");
+    this.loginAccount$.next(null);
   }
   
   // addItemInUserCart(itemInUserCart:CartByUser){

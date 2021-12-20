@@ -2,12 +2,6 @@
 	<div class="form-container sign-in-container">
 		<form (ngSubmit)="checkLogin()" [formGroup]="formLogin">
 			<h1>Sign in</h1>
-			<div class="social-container">
-				<a  class="social"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-				<a  class="social"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-				<a  class="social"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-			</div>
-			<span>or use your account</span>
       <input type="text" class="form-control" name="username" formControlName="username" placeholder="username" />
       <small *ngIf="formLogin.get('username').invalid && formLogin.get('username').touched" class="text-danger">Please
                 enter a valid username!</small>

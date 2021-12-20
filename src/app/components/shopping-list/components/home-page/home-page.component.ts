@@ -20,7 +20,7 @@ export class HomePageComponent implements OnInit,OnDestroy {
   checkLogin : boolean = true;
   checkRole : boolean = true;
   username : string = '';
-  loginUser : any = [];
+  loginUser !: any;
   itemInCart!:Cart[]
   totalMoney !: number
   constructor(private cartService:CartService, private transferService:TransferService,private router:Router){}
@@ -28,7 +28,8 @@ export class HomePageComponent implements OnInit,OnDestroy {
     this.getLogin();
     this.subscription.add(this.transferService.getAllItemByUser(this.username).subscribe(data=>{this.numberOfItem1 = data?.cart.length;
       this.itemInCart = data.cart;
-      this.totalMoney = this.itemInCart.reduce((x, item) => x + (item.qty * item.product.price), 0);}))
+      this.totalMoney = this.itemInCart.reduce((x, item) => x + (item.qty * item.product.price), 0);
+    }))
   }
   ngOnDestroy(): void {
       if(this.subscription){
@@ -36,11 +37,13 @@ export class HomePageComponent implements OnInit,OnDestroy {
       }
   }
   getLogin(){
-    this.subscription = this.transferService.loginAccount$.subscribe(data=>this.loginUser=data)
+    this.subscription = this.transferService.loginAccount$.subscribe(data=>this.loginUser=data
+      
+      )
     if(this.loginUser){
       this.checkLogin = false;
-      this.username = this.loginUser[0]['username']
-      if(this.loginUser[0]['roles'] === 'admin'){
+      this.username = this.loginUser.username
+      if(this.loginUser.roles === 'admin'){
         this.checkRole = false;
       }else{
         this.checkRole = true;
@@ -65,15 +68,13 @@ export class HomePageComponent implements OnInit,OnDestroy {
     this.totalMoney = 0;
     let cartLength = this.itemInCart.length
     if(cartLength > 0){
-      this.itemInCart.filter((item)=>{
-        this.totalMoney += (item.product.price * item.qty)
-      })
+      this.totalMoney = this.itemInCart.reduce((x, item) => x + (item.qty * item.product.price), 0);
     }else{
       this.totalMoney = 0;
     }
   }
-  onChangeValue(username:string,idProduct:number,maBoolean:boolean){
-    this.cartService.updateQuantity(username,idProduct,maBoolean);
+  onChangeValue(username:string,idProduct:number,minusOrPlus:boolean){
+    this.cartService.updateQuantity(username,idProduct,minusOrPlus);
     this.updateMoney();
   }
 }

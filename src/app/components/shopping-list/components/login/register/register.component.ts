@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { map } from 'rxjs';
 import { Account } from 'src/app/models/account.model';
 import { TransferService } from 'src/app/services/transfer.service';
 
@@ -20,24 +21,35 @@ export class RegisterComponent implements OnInit {
   }
   createForm(){
     this.formRegister = this.formBuilderService.group({
-      username:['',Validators.required],
+      username:['',Validators.required,[this.isUserNameExists.bind(this)]],
       password:['',Validators.required],
-      repassword:['',Validators.required]},{
+      repassword:['',Validators.required]},
+      {
         validators: this.reCheckPass('password','repassword')
       }
     )}
+    isUserNameExists(control:AbstractControl){
+      return this.transferService.allAccount$.pipe(map(data=>{
+        let checkExists = data.find(item => item.username === control.value);
+        if(checkExists){
+          control.setErrors({isUserNameExists:true});
+        }else{
+          control.setErrors(null)
+        }
+      }));
+    }
   
   reCheckPass(password:string,repassword:string){
      return(formGroup:FormGroup)=>{
-       const control = formGroup.controls[password];
-       const controlConfirm = formGroup.controls[repassword];
-       if(controlConfirm.errors && !controlConfirm.errors['reCheckPass']){
+       const pass = formGroup.controls[password];
+       const reCheck = formGroup.controls[repassword];
+       if(reCheck.errors && !reCheck.errors['reCheckPass']){
          return
        }
-       if(control.value !== controlConfirm.value){
-        controlConfirm.setErrors({reCheckPass:true});
+       if(pass.value !== reCheck.value){
+        reCheck.setErrors({reCheckPass:true});
        }else{
-        controlConfirm.setErrors(null)
+        reCheck.setErrors(null)
        }
      }
   
